@@ -6,38 +6,32 @@ import networkx as nx
 
 
 
+filename_in = "TEST.txt"
+path_in = ""
+
+filename_out = "simple_graph"
+path_out = "../graphs/" + filename_out
+
+DRAW = True
+TO_DOT = False
+TO_PNG = True
+
 
 if __name__ == "__main__":
-    filename = "TEST.txt"
-    path = ""
     
-    filepath_in = "simple_graph_copy.dot"
-    
-    course_list = file_util.make_course_list_from_file(path + filename)
-    for course in course_list:
-        #print(course, "prerequisites =")
-        for prerequisite in course.prerequisites:
-            #print("    ", prerequisite)
-            pass
-    
-    #print(course_list[1].prerequisites[0])
-    #print(course_list[0])
-    
+    course_list = file_util.make_course_list_from_file(path_in + filename_in)
     
     g1 = CourseGraph([], [], course_list)
     
-    filename = "simple_graph"
-    path = "graphs/" + filename
     
     
-    drawGraph.draw_graph(g1)
-    #drawGraph.write_graph_to_dot(g1, path)
-    #drawGraph.write_graph_to_png(g1, path)
-    
-    drawGraph.write_from_file_to_png("graphs/" + filepath_in, 'MathGraph')
-    
-
-
+    if DRAW:
+        drawGraph.draw_graph(g1)
+        
+    if TO_DOT:
+        drawGraph.write_graph_to_dot(g1, path_out)
+    if TO_PNG:
+        drawGraph.write_graph_to_png(g1, path_out)
 
 
 
