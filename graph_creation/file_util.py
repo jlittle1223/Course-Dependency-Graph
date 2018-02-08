@@ -1,3 +1,4 @@
+
 from course import Course
 
 and_string = " and "
@@ -60,7 +61,6 @@ def remove_spaces(prerequisite_string):
         if or_string in bool_tracker:
             has_or = True
             new_string = temp_string[:-len(or_string)]
-            print("new string = ", new_string)
             new_string = new_string.replace(" ", "")
             new_string = new_string.replace(" ", "")
             if new_string != new_string.upper():
@@ -70,7 +70,6 @@ def remove_spaces(prerequisite_string):
                 break
             new_string += or_string
             final_string += new_string
-            print("final string in or loop",final_string)
             #c += len(or_string)
             bool_tracker = ""
             temp_string = ""
@@ -99,9 +98,26 @@ def remove_spaces(prerequisite_string):
     
         
     final_string += "\n"
-    print("final_string = {}".format(final_string))
     return final_string
-            
+
+
+def remove_character_from_file(filepath_in, filepath_out, character):
+    file_in = open(filepath_in, "r")
+    lines = file_in.read()
+    
+    file_in.close()
+    
+    lines = lines.replace(character, "")
+    
+    file_out = open(filepath_out, "w")
+    file_out.write(lines)
+    
+    file_out.close()
+    
+    
+    
+    
+    return lines
 
 
 
@@ -115,9 +131,11 @@ def make_course_list_from_file(filename:str):
         line = line.replace("\n", "")
         if (contains_course_name(line)):
             course = make_course_from_line(line)
-            course_list.append(course)
+            if not course_already_in_list(course, course_list):
+                course_list.append(course)
     
     file.close()
+    
     
     return course_list
 
@@ -247,7 +265,6 @@ def get_prerequisite_list_from_line(prerequisite_string):
             
             prerequisite_name = prerequisite_string[start_index:slice_to_index]
                         
-            print("AND PREREQUISITE NAME = {}".format(prerequisite_name))
             
             start_index = end_index
             temp_string = ""
@@ -267,14 +284,12 @@ def get_prerequisite_list_from_line(prerequisite_string):
             slice_to_index = end_index - len(or_string)
             
             while prerequisite_string[slice_to_index - 1] == "\"":
-                print("subtracted")
                 slice_to_index -= 1
             
             while prerequisite_string[start_index] == "\"":
                 start_index += 1
                 
             while prerequisite_string[slice_to_index - 1] == ",":
-                print("subtracted")
                 slice_to_index -= 1
             
             while prerequisite_string[start_index] == ",":
@@ -282,7 +297,6 @@ def get_prerequisite_list_from_line(prerequisite_string):
             
             
             while prerequisite_string[slice_to_index - 1] == ")":
-                print("subtracted")
                 slice_to_index -= 1
             
             while prerequisite_string[start_index] == "(":
@@ -290,7 +304,6 @@ def get_prerequisite_list_from_line(prerequisite_string):
             
             prerequisite_name = prerequisite_string[start_index:slice_to_index]
             
-            print("first prerequisite name = {}".format(prerequisite_name))
             
             prerequisite = Course(prerequisite_name)
             
@@ -307,20 +320,16 @@ def get_prerequisite_list_from_line(prerequisite_string):
             after_name_index = get_index_of_end_of_first_course_name(after_string) + 1
             
             while after_string[after_name_index - 1] == ")":
-                print("subtracted")
                 after_name_index -= 1
             
             second_prerequisite_name = after_string[:after_name_index]
             second_prerequisite = Course(second_prerequisite_name)
-            print("Second course name = {}".format(second_prerequisite.name))
             
-            print("Second prerequisite name = {}".format(second_prerequisite_name))
             
             if not course_already_in_list(second_prerequisite, disjunction_list):
                 disjunction_list.append(second_prerequisite)
             
             
-            print("DISJUNCTION LIST", disjunction_list)
             
             temp_string = ""
             
@@ -340,18 +349,32 @@ def get_prerequisite_list_from_line(prerequisite_string):
     return prerequisite_list
 
 
-def get_disjunction_list_from_line(prerequisite_string):
-    '''
-    if you see an ' or ', add the course before the ' or '
-    to the disjunction list and check if the course after is
-    followed by an ' or '. If it is NOT, add the course to the
-    disjunction list and continue searching the string. If it IS 
-    followed by an ' or ' then add the course to the disjunction 
-    list and continue to check the courses after 
-    '''
+
     
-    disjunction_list = []
     
+    
+def get_majors_list_from_file(filepath):
+    majors_list = []
+    file = open(filepath, 'r')
+    
+    for line in file:
+        majors_list.append(line.rstrip('\n'))
+        
+    
+    file.close()
+    
+    return majors_list
+
+
+
+def get_string_from_file(filepath):
+    string = ""
+    file = open(filepath, 'r')
+    
+    for line in file:
+        string += line
+        
+    return string
     
 
 

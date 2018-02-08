@@ -6,14 +6,19 @@ import networkx as nx
 
 
 
-filename_in = "TEST.txt"
-path_in = ""
+#filename_in = "TEST.txt"
+#path_in = ""
 
-filename_out = "simple_graph"
+
+filename_in = "donaldbrenschoolofinformationandcomputersciencesdepartmentofcomputerscience.txt"
+path_in = "../data_collection/major_prerequisites/"
+
+
+filename_out = "new_graph"
 path_out = "../graphs/" + filename_out
 
 DRAW = True
-TO_DOT = False
+TO_DOT = True
 TO_PNG = True
 
 
