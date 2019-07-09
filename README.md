@@ -9,4 +9,4 @@ There are two main parts to this project:
 
 Data Collection consists of a web crawler navigating the UCI catalogue and creating a dictionary of each class and its list of prerequisites.
 
-Graph Creation consists of the creation of the data structure to model the dependency graph (which is a Directed Acyclic Graph). Also makes use of the library networkx to create visualizations for the graphs.
+Graph Creation consists of the creation of the data structure to model the dependency graph. Also makes use of the library networkx to create visualizations for the graphs.
