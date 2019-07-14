@@ -1,4 +1,4 @@
-# Schedule-Dependency-Graph
+# Course-Dependency-Graph
 
 This repository automatically generates schedule dependency graphs (Flowchart for what courses are prerequisite to others) for all majors offered at UC Irvine.
 
